@@ -3,3 +3,4 @@ pandas
 streamlit
 bokeh==2.4.1
 streamlit_bokeh_events
+openpyxl
