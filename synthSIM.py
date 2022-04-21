@@ -155,6 +155,7 @@ class Simulator():
         self.params['dbl_total_vol'] = 0.
         self.params['dbl_cycle_time'] = 0.
         self.params['total_time'] = 0.
+        self.params['total_time, h'] = 0.
         self.params['acn_total_vol'] = 0.
         self.params['capA_cycle_vol'] = 0.
         self.params['capA_total_vol'] = 0.
@@ -411,6 +412,7 @@ class Simulator():
                                      self.params['oxi_total_vol'] + self.params['acn_total_vol'] + \
                                      self.params['base_A_vol'] + self.params['base_C_vol'] + \
                                      self.params['base_G_vol'] + self.params['base_T_vol']
+        self.params['total_time, h'] = self.params['total_time'] / 3600
 
 
 def calc_syn_params():

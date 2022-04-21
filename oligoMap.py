@@ -1,6 +1,6 @@
 import pandas as pd
 import oligoMass.molmassOligo as mmo
-import numpy as np
+import synthSIM
 
 class OligoMapReadWriter():
     def __init__(self, fn):
@@ -113,7 +113,24 @@ class OligoMapReadWriter():
     def add_synProgParams(self):
         self.synTab = self.synTab.T
 
-        
+        df_method = pd.read_excel(self.filePath, sheet_name='synt_programs').fillna('null').reset_index()
+        #print(df_method)
+
+        seq_list = []
+        for seq in self.synTab['Sequence (5-3)']:
+            o = mmo.oligoNASequence(seq)
+            seq_list.append(''.join(list(o._seqtab['nt'])))
+        #print(seq_list)
+
+        slider = synthSIM.ColumnSlider(seq_list)
+        sim = synthSIM.Simulator('', slider, df=df_method)
+        sim.main_cycle()
+        sim.rmvDMT_prog()
+        sim.finish_prog()
+
+        for key in sim.params.keys():
+            self.synTab[f'Synthesis param {key}'] = str(sim.params[key])
+            self.copy_list.append(f'Synthesis param {key}')
 
         self.synTab = self.synTab.T
 
