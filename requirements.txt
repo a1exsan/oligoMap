@@ -1,2 +1,5 @@
 oligoMass==0.1.1
 pandas
+streamlit
+bokeh==2.4.1
+streamlit_bokeh_events
