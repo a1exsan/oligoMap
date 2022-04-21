@@ -1,7 +1,6 @@
 import xml.etree.ElementTree as ET
-from xml.etree.ElementTree import Element, SubElement, Comment, tostring, ElementTree
+from xml.etree.ElementTree import Element, SubElement, ElementTree
 import pandas as pd
-from openpyxl import load_workbook
 
 class polygenProgReader():
     def __init__(self, fn):
