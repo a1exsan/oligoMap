@@ -626,18 +626,18 @@ def order_analysis(fn):
     print(reag_vol_df.T)
     print(m_cycle_df)
 
-    try:
-        append_to_excel(fn, res_df, 'reag_cost')
-    except:
-        pass
-    try:
-        append_to_excel(fn, reag_vol_df.T, 'reag_vol')
-    except:
-        pass
-    try:
-        append_to_excel(fn, m_cycle_df, 'cycle_params')
-    except:
-        pass
+    #try:
+    append_to_excel(fn, res_df, 'reag_cost')
+    #except:
+    #    pass
+    #try:
+    append_to_excel(fn, reag_vol_df.T, 'reag_vol')
+    #except:
+    #    pass
+    #try:
+    append_to_excel(fn, m_cycle_df, 'cycle_params')
+    #except:
+    #    pass
 
 
 
@@ -719,13 +719,13 @@ def synprogs2params(fn):
     out.to_csv(fn + '_params.csv', index=False)
 
 def create_progs():
-    fn = '/home/alex/Documents/OligoSynt/DB/maps/nmap/synth_210422_8opt.xlsx'
-    main_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID27_main'
-    coup_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID27_couple'
-    remv_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID27_rmvDMT'
-    fini_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID27_fin'
-    copu_fum6 = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID27_couple_fam6'
-    copu_sima = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID27_couple_sima'
+    fn = '/home/alex/Documents/OligoSynt/DB/maps/nmap/synth_290422_SGMU_sb.xlsx'
+    main_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/SB_main'
+    coup_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/SB_couple'
+    remv_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/SB_rmvDMT'
+    fini_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/SB_fin'
+    copu_fum6 = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/SB_couple_fam6'
+    copu_sima = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/SB_couple_sima'
     files = [main_fn, coup_fn, remv_fn, fini_fn, copu_sima, copu_fum6]
     prog_types = ['main', 'couple', 'removeDMT', 'finish', 'couple_sima', 'couple_fam6']
     extentions = ['pmp', 'pcp', 'prp', 'pfp', 'pcp', 'pcp']
@@ -769,8 +769,10 @@ if __name__ == '__main__':
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/HAPC_opt_6.xlsx')
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/HAPC_opt_7.xlsx')
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/HAPC_opt_6_dyes.xlsx')
+    order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/HAPC_ID25_calc.xlsx')
+    order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/HAPC_ID25_calc_10seq.xlsx')
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/NF_NR_2.xlsx')
-    create_progs()
+    #create_progs()
     #synprogs2params('/home/alex/Documents/OligoSynt/DB/data/synprog.csv')
 
     #polygene_read()
