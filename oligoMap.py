@@ -8,11 +8,12 @@ class OligoMapReadWriter():
 
         self.copy_list = [
                         'Molecular Mass, Da',
-                       'Molar extinction, oe*L/mol',
-                       'Total amount, OE',
-                       'Total amount, nmol',
-                       'Max yield, nmol',
-                       'Yield%'
+                        'Molar extinction, oe*L/mol',
+                        'nt length',
+                        'Total amount, OE',
+                        'Total amount, nmol',
+                        'Max yield, nmol',
+                        'Yield%'
                           ]
 
         self.readSyntTab()
