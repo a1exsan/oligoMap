@@ -37,6 +37,7 @@ class OligoMapReadWriter():
         else:
             self.synTab['Molecular Mass, Da'] = self.getNullListDF(self.synTab)
             self.synTab['Molar extinction, oe*L/mol'] = self.getNullListDF(self.synTab)
+            self.synTab['nt length'] = self.getNullListDF(self.synTab)
 
         self.synTab = self.synTab.T
 
@@ -154,9 +155,6 @@ class OligoMapReadWriter():
         self.add_reagentParams()
         self.add_synProgParams()
 
-        #print(self.synTab)
-        #self.synTab.reset_index(inplace=True)
-        #self.add_sheet_to_excel(self.synTab, 'test')
 
     def add_sheet_to_excel(self, df, sheetname):
         with pd.ExcelWriter(self.filePath, mode="a", if_sheet_exists='overlay') as f:
