@@ -19,7 +19,7 @@ class OligoMapReadWriter():
 
 
     def add_molProperties(self):
-        mass, ext_cf = [], []
+        mass, ext_cf, length = [], [], []
         self.synTab = self.synTab.T
 
         if self.synTab['Sequence (5-3)'].max() != 'null':
@@ -27,9 +27,12 @@ class OligoMapReadWriter():
                 oligos = mmo.oligoNASequence(seq)
                 mass.append(oligos.getAvgMass())
                 ext_cf.append(oligos.getExtinction())
+                length.append(oligos.getSeqLength())
+
 
             self.synTab['Molecular Mass, Da'] = mass
             self.synTab['Molar extinction, oe*L/mol'] = ext_cf
+            self.synTab['nt length'] = length
         else:
             self.synTab['Molecular Mass, Da'] = self.getNullListDF(self.synTab)
             self.synTab['Molar extinction, oe*L/mol'] = self.getNullListDF(self.synTab)
