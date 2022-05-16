@@ -719,13 +719,13 @@ def synprogs2params(fn):
     out.to_csv(fn + '_params.csv', index=False)
 
 def create_progs():
-    fn = '/home/alex/Documents/OligoSynt/DB/maps/nmap/synth_060522_5p_id28.xlsx'
-    main_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_main'
-    coup_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_couple'
-    remv_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_rmvDMT'
-    fini_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_fin'
-    copu_fum6 = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_couple_fam6'
-    copu_sima = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_couple_sima'
+    fn = '/home/alex/Documents/OligoSynt/DB/maps/nmap/synth_160522_gp_BHQ.xlsx'
+    main_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_main'
+    coup_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_couple'
+    remv_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_rmvDMT'
+    fini_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_fin'
+    copu_fum6 = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_couple_fam6'
+    copu_sima = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_couple_sima'
     files = [main_fn, coup_fn, remv_fn, fini_fn, copu_sima, copu_fum6]
     prog_types = ['main', 'couple', 'removeDMT', 'finish', 'couple_sima', 'couple_fam6']
     extentions = ['pmp', 'pcp', 'prp', 'pfp', 'pcp', 'pcp']
