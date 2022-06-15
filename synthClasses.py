@@ -178,8 +178,10 @@ class synSimulator():
                 concentration = sub_reagent[sub_reagent['units'] == 'g']['amount'].max() / \
                             sub_reagent[sub_reagent['units'] == 'ml']['amount'].max()
             #print(concentration, 'g/ml')
-                self.info['total reagent volume, ml'].append(volume)
-                self.info['total reagent mass, g'].append(concentration * volume)
+                mass = concentration * volume
+                mass = mass + mass * 0.20
+                self.info['total reagent volume, ml'].append(mass / concentration)
+                self.info['total reagent mass, g'].append(mass)
         self.info['reagent name'].append('ACN amidites')
         self.info['total reagent volume, ml'].append(sum(self.info['total reagent volume, ml']))
         self.info['total reagent mass, g'].append(0)
