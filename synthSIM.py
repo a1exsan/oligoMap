@@ -719,16 +719,18 @@ def synprogs2params(fn):
     out.to_csv(fn + '_params.csv', index=False)
 
 def create_progs():
-    fn = '/home/alex/Documents/OligoSynt/DB/maps/nmap/synth_160522_gp_BHQ.xlsx'
-    main_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_main'
-    coup_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_couple'
-    remv_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_rmvDMT'
-    fini_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_fin'
-    copu_fum6 = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_couple_fam6'
-    copu_sima = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_couple_sima'
-    files = [main_fn, coup_fn, remv_fn, fini_fn, copu_sima, copu_fum6]
-    prog_types = ['main', 'couple', 'removeDMT', 'finish', 'couple_sima', 'couple_fam6']
-    extentions = ['pmp', 'pcp', 'prp', 'pfp', 'pcp', 'pcp']
+    #fn = '/home/alex/Documents/OligoSynt/DB/maps/nmap/synth_090622_gp_SIMA_mod.xlsx'
+    fn = '/home/alex/Downloads/synth_140622_dye_1.xlsx'
+    main_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_3_main'
+    coup_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_3_couple'
+    remv_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_3_rmvDMT'
+    fini_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_3_fin'
+    copu_dye = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_3_couple_dye'
+    #copu_sima = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_couple_sima'
+    #files = [main_fn, coup_fn, remv_fn, fini_fn, copu_sima, copu_fum6]
+    files = [main_fn, coup_fn, remv_fn, fini_fn, copu_dye]
+    prog_types = ['main', 'couple', 'removeDMT', 'finish', 'couple [6FAM]']
+    extentions = ['pmp', 'pcp', 'prp', 'pfp', 'pcp']
     conv = polygenProgConverter(fn, main_fn, coup_fn, remv_fn, fini_fn, file_names=files,
                                 prog_types=prog_types, extentions=extentions)
     conv.convert_csv()
@@ -771,7 +773,9 @@ if __name__ == '__main__':
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/HAPC_opt_6_dyes.xlsx')
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/HAPC_ID25_calc.xlsx')
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/HAPC_ID25_calc_10seq.xlsx')
+    #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/test_orders/service_calc_1seq.xlsx')
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/NF_NR_2.xlsx')
+    #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/test_orders/primer6.xlsx')
     create_progs()
     #synprogs2params('/home/alex/Documents/OligoSynt/DB/data/synprog.csv')
 

@@ -1,6 +1,7 @@
 import pandas as pd
 import oligoMass.molmassOligo as mmo
 import synthSIM
+import synthClasses as scls
 
 class OligoMapReadWriter():
     def __init__(self, fn):
@@ -15,6 +16,14 @@ class OligoMapReadWriter():
                         'Max yield, nmol',
                         'Yield%'
                           ]
+
+        #mapName = '/home/alex/Downloads/synth_140622_dye_1.xlsx'
+        mapName = fn
+        synparams = scls.synthParams(mapName)
+        method = scls.synthMethod(mapName)
+        reagents = scls.Reagents(mapName)
+        self.simul = scls.synSimulator(synparams, method, reagents)
+        #print(pd.DataFrame(self.simul.info))
 
         self.readSyntTab()
 
@@ -133,9 +142,18 @@ class OligoMapReadWriter():
         sim.rmvDMT_prog()
         sim.finish_prog()
 
+        df = pd.DataFrame(self.simul.info)
+        for key, vol, mass in zip(df['reagent name'], df['total reagent volume, ml'], df['total reagent mass, g']):
+            self.synTab[f'reagent {key} volume, ml'] = str(vol)
+            self.synTab[f'reagent {key} mass, g'] = str(mass)
+            self.copy_list.append(f'reagent {key} volume, ml')
+            self.copy_list.append(f'reagent {key} mass, g')
+
         for key in sim.params.keys():
             self.synTab[f'Synthesis param {key}'] = str(sim.params[key])
+            #print(key, sim.params[key])
             self.copy_list.append(f'Synthesis param {key}')
+        #print(self.copy_list)
 
         self.synTab = self.synTab.T
 
