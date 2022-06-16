@@ -178,7 +178,7 @@ class synSimulator():
                 concentration = sub_reagent[sub_reagent['units'] == 'g']['amount'].max() / \
                             sub_reagent[sub_reagent['units'] == 'ml']['amount'].max()
             #print(concentration, 'g/ml')
-                volume += 2000 * 5 / 60
+                volume += 1 / 6 # поправка на промывки
                 mass = concentration * volume
                 mass = mass + mass * 0.25
                 self.info['total reagent volume, ml'].append(mass / concentration)
