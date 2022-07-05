@@ -32,7 +32,11 @@ class excelSheet():
                         self.sheet[key][i] = self.template[key](self.sheet[key][i])
 
     def get_df(self):
-        return pd.DataFrame(self.sheet)
+        d = {}
+        for key in self.sheet.keys():
+            if key != None:
+                d[key] = self.sheet[key]
+        return pd.DataFrame(d)
 
     def __call__(self, *args, **kwargs):
         return self.sheet
