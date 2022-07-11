@@ -150,7 +150,11 @@ class synSimulator():
             seqtab = oligo.getSeqTabDF()
             for prefix, base, suffix in zip(seqtab['prefix'], seqtab['nt'], seqtab['suffix']):
                 if prefix != '':
-                    unique_mods['name'].append(f'{prefix} {base}')
+                    if prefix in ['[6FAM]', '[SIMA]', '[Cy5]', '[Cy5.5]']:
+                        unique_mods['name'].append(f'{prefix}')
+                    else:
+                        unique_mods['name'].append(f'{prefix} {base}')
+
                     unique_mods['mod'].append(f'{prefix}')
                     unique_mods['base'].append(f'_{base}')
                 elif suffix != '':
@@ -187,6 +191,7 @@ class synSimulator():
                 mass = mass + mass * 0.25
                 self.info['total reagent volume, ml'].append(mass / concentration)
                 self.info['total reagent mass, g'].append(mass)
+                #print(reagent, df.shape[0], couple_num)
         self.info['reagent name'].append('ACN amidites')
         self.info['total reagent volume, ml'].append(sum(self.info['total reagent volume, ml']))
         self.info['total reagent mass, g'].append(0)
