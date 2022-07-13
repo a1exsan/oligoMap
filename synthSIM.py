@@ -720,12 +720,12 @@ def synprogs2params(fn):
 
 def create_progs():
     #fn = '/home/alex/Documents/OligoSynt/DB/maps/nmap/synth_090622_gp_SIMA_mod.xlsx'
-    fn = '/home/alex/Downloads/synth_070722_test_5umol_ID5L_2.xlsx'
-    main_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_2_main'
-    coup_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_2_couple'
-    remv_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_2_rmvDMT'
-    fini_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_2_fin'
-    copu_dye = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_2_couple_dye'
+    fn = '/home/alex/Downloads/synth_130722_test_5umol_ID5L_3 (1).xlsx'
+    main_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_3_main'
+    coup_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_3_couple'
+    remv_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_3_rmvDMT'
+    fini_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_3_fin'
+    copu_dye = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_3_couple_dye'
     #copu_sima = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_couple_sima'
     #files = [main_fn, coup_fn, remv_fn, fini_fn, copu_sima, copu_fum6]
     files = [main_fn, coup_fn, remv_fn, fini_fn, copu_dye]

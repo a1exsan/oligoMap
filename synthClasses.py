@@ -24,7 +24,12 @@ class excelSheet():
                 if type(value) != self.template[key] and type(value) != type(None):
                     #print(type(value), self.template[key], value)
                     if type(value) == str and self.template[key] == float:
-                        self.sheet[key][i] = self.template[key](self.sheet[key][i].replace(',', '.'))
+                        try:
+                            self.sheet[key][i] = self.template[key](self.sheet[key][i].replace(',', '.'))
+                        except:
+                            s = self.sheet[key][i].replace(',', '.')
+                            s = s.replace('=', '')
+                            self.sheet[key][i] = self.template[key](eval(s))
                     elif type(value) == str and self.template[key] == int:
                         fl = float(self.sheet[key][i].replace(',', '.'))
                         self.sheet[key][i] = int(round(fl))
@@ -151,10 +156,10 @@ class synSimulator():
             for prefix, base, suffix in zip(seqtab['prefix'], seqtab['nt'], seqtab['suffix']):
                 if prefix != '':
                     if prefix in ['[6FAM]', '[SIMA]', '[Cy5]', '[Cy5.5]']:
+                        #print('#'*100)
                         unique_mods['name'].append(f'{prefix}')
                     else:
                         unique_mods['name'].append(f'{prefix} {base}')
-
                     unique_mods['mod'].append(f'{prefix}')
                     unique_mods['base'].append(f'_{base}')
                 elif suffix != '':
@@ -165,6 +170,7 @@ class synSimulator():
                     unique_mods['name'].append(f'{base}')
                     unique_mods['mod'].append(f'')
                     unique_mods['base'].append(f'_{base}')
+                #print(prefix, unique_mods['name'][-1])
 
         self.all_reagents = pd.DataFrame(unique_mods)
 
@@ -174,11 +180,13 @@ class synSimulator():
                 'total reagent volume, ml': [],
                 'total reagent mass, g': []
                 }
+        #print('&'*100)
         for reagent in self.all_reagents['name'].unique():
             df = self.all_reagents[self.all_reagents['name'] == reagent]
             couple_num = self.synMethod.data[self.synMethod.data['Reagent'] == 'COUPL'].shape[0]
             sub_method = self.get_method_mod_subDF(base=df['base'].unique()[0], mod=df['mod'].unique()[0])
             sub_reagent = self.get_reagents_mod_subDF(base=df['base'].unique()[0], mod=df['mod'].unique()[0])
+            #print(reagent, sub_method.shape[0], sub_reagent.shape[0], df['base'].unique()[0])
             if sub_method.shape[0] > 0 and sub_reagent.shape[0] > 0:
                 self.info['reagent name'].append(sub_reagent['name'].unique()[0])
                 volume = sub_method[sub_method['Reagent'] == 'BASE']['volume, ul'].sum()\
@@ -319,7 +327,84 @@ class purifParams():
         Класс реализует внутреннее представление о параметрах очистки олигонуклеотидов
         Вычисляет: выход стадии
     """
-    pass
+    def __init__(self, fn, sheet_name='Purification'):
+        super().__init__()
+        self.fileName = fn
+        self.sheet_name = sheet_name
+        self.info = None
+        self.templ = {}
+        self.templ['Date'] = type(pd.to_datetime('01.01.22'))
+        self.templ['final volume, ml'] = float
+        self.templ['conc, oe_ml'] = float
+        self.templ['sample name'] = str
+        self.templ['source name'] = str
+        self.templ['type'] = str
+
+        self.sheet_tab = ColKeySheet(self.fileName, self.sheet_name, self.templ)
+        self.__calc_info()
+
+    def __calc_info(self):
+        self.data = self.sheet_tab.get_df()
+        self.data.dropna(inplace=True)
+        self.data['amount, oe'] = self.data['conc, oe_ml'] * self.data['final volume, ml']
+
+class Calc_Yields():
+
+    def __init__(self, synDF, purDF):
+        self.synDF = synDF
+        self.purDF = purDF
+
+    def calc(self):
+        #print(self.purDF)
+        #print(self.synDF)
+
+        names = self.synDF['Sample name'].unique()
+        types = self.purDF['type'].unique()
+        ps_names = self.purDF['source name'].unique()
+
+        yields = {}
+        yieldsDF = pd.DataFrame()
+        params = []
+        for name in names:
+            yields[name] = {}
+            yields[name][f'extinction'] = self.synDF[self.synDF['Sample name'] == name]['Molar extinction, oe*L/mol'].max()
+            yields[name][f'synt amount, OE'] = self.synDF[self.synDF['Sample name'] == name]['Total amount, OE'].max()
+            yields[name][f'synt amount, nmol'] = self.synDF[self.synDF['Sample name'] == name]['Total amount, nmol'].max()
+            yields[name][f'synt Yield%'] = self.synDF[self.synDF['Sample name'] == name]['Yield%'].max()
+
+            for t in types:
+                if t.lower() in ['iex', 'rp']:
+                    df = self.purDF[self.purDF['source name'] == name]
+                    sname = df['sample name'].max()
+                    yields[name][f'{t}  amount, OE'] = df['amount, oe'].max()
+                    yields[name][f'{t}  amount, nmol'] = yields[name][f'{t}  amount, OE'] * 1e6 / \
+                                                             yields[name][f'extinction']
+                    yields[name][f'{t}  Yield%'] = yields[name][f'{t}  amount, nmol'] * 100 / \
+                                                       yields[name][f'synt amount, nmol']
+
+                elif t.lower() in ['desalt']:
+                    sname = self.purDF[self.purDF['source name'] == name]['sample name'].max()
+                    df = self.purDF[self.purDF['source name'] == sname]
+                    sname = df['sample name'].max()
+                    yields[name][f'{t}  amount, OE'] = df['amount, oe'].max()
+                    yields[name][f'{t}  amount, nmol'] = yields[name][f'{t}  amount, OE'] * 1e6 / \
+                                                             yields[name][f'extinction']
+                    yields[name][f'{t}  Yield%'] = yields[name][f'{t}  amount, nmol'] * 100 / \
+                                                       yields[name][f'synt amount, nmol']
+            if yieldsDF.shape[0] == 0:
+                params = list(yields[name].keys())
+            yieldsDF[name] = list(yields[name].values())
+            #print(yields[name].keys())
+                #print(df)
+
+        #print(ps_names)
+
+        yieldsDF.fillna('null', inplace=True)
+
+        self.YieldsTab = pd.DataFrame(data=yieldsDF.values, columns=names, index=params)
+        #print(self.YieldsTab.T)
+        return self.YieldsTab.T
+
 
 class finalizationProcedure():
     """
@@ -370,6 +455,23 @@ def test4():
     reagents = Reagents(mapName)
     simul = synSimulator(synparams, method, reagents)
 
+def test5():
+    mapName = '/home/alex/Downloads/synth_060722_primers_tn.xlsx'
+    mapName = '/home/alex/Downloads/synth_120722_test_5umol_ID5L_1.xlsx'
+    mapName = '/home/alex/Downloads/synth_050722_gp_SIMA.xlsx'
+
+    synparams = synthParams(mapName)
+    columns = ['Name', 'Sample name', 'Total amount, OE', 'Total amount, nmol', 'Yield%',
+               'Molar extinction, oe*L/mol', ]
+    #print(synparams.data[columns].T)
+    purif = purifParams(mapName)
+
+    yields = Calc_Yields(synparams.data, purif.data)
+    yields.calc()
+
+
+
+
 
 if __name__=='__main__':
-    test4()
+    test5()

@@ -22,6 +22,10 @@ class OligoMapReadWriter():
         synparams = scls.synthParams(mapName)
         method = scls.synthMethod(mapName)
         reagents = scls.Reagents(mapName)
+        purif = scls.purifParams(mapName)
+
+        yields = scls.Calc_Yields(synparams.data, purif.data)
+        self.yieldsDF = yields.calc()
         self.simul = scls.synSimulator(synparams, method, reagents)
         #print(pd.DataFrame(self.simul.info))
 
@@ -63,6 +67,10 @@ class OligoMapReadWriter():
                                             / self.synTab['Molar extinction, oe*L/mol']
             self.synTab['Max yield, nmol'] = self.synTab['support_amount, mg'] * self.synTab['support_capacity, nM/mg']
             self.synTab['Yield%'] = self.synTab['Total amount, nmol'] * 100 / self.synTab['Max yield, nmol']
+
+            for key in self.yieldsDF.keys():
+                self.synTab[key] = list(self.yieldsDF[key])
+
         else:
             self.synTab['Total amount, OE'] = self.getNullListDF(self.synTab)
             self.synTab['Total amount, nmol'] = self.getNullListDF(self.synTab)
