@@ -158,10 +158,16 @@ class synSimulator():
                     if prefix in ['[6FAM]', '[SIMA]', '[Cy5]', '[Cy5.5]']:
                         #print('#'*100)
                         unique_mods['name'].append(f'{prefix}')
+                        unique_mods['mod'].append(f'{prefix}')
+                        unique_mods['base'].append(f'_{base}')
+                    elif prefix in ['BHQ1', 'BHQ2']:
+                        unique_mods['name'].append(f'{base}')
+                        unique_mods['mod'].append(f'')
+                        unique_mods['base'].append(f'_{base}')
                     else:
                         unique_mods['name'].append(f'{prefix} {base}')
-                    unique_mods['mod'].append(f'{prefix}')
-                    unique_mods['base'].append(f'_{base}')
+                        unique_mods['mod'].append(f'{prefix}')
+                        unique_mods['base'].append(f'_{base}')
                 elif suffix != '':
                     unique_mods['name'].append(f'{base} {suffix}')
                     unique_mods['mod'].append(f'{suffix}')
