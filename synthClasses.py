@@ -160,7 +160,7 @@ class synSimulator():
                         unique_mods['name'].append(f'{prefix}')
                         unique_mods['mod'].append(f'{prefix}')
                         unique_mods['base'].append(f'_{base}')
-                    elif prefix in ['BHQ1', 'BHQ2']:
+                    elif prefix in ['[BHQ1]', '[BHQ2]']:
                         unique_mods['name'].append(f'{base}')
                         unique_mods['mod'].append(f'')
                         unique_mods['base'].append(f'_{base}')
