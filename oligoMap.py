@@ -69,6 +69,7 @@ class OligoMapReadWriter():
             self.synTab['Yield%'] = self.synTab['Total amount, nmol'] * 100 / self.synTab['Max yield, nmol']
 
             for key in self.yieldsDF.keys():
+                self.copy_list.append(key)
                 self.synTab[key] = list(self.yieldsDF[key])
 
         else:
