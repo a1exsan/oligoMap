@@ -153,6 +153,7 @@ class synSimulator():
         for seq in self.synParam.data['Sequence (5-3)']:
             oligo = mmo.oligoNASequence(seq)
             seqtab = oligo.getSeqTabDF()
+            index = 1
             for prefix, base, suffix in zip(seqtab['prefix'], seqtab['nt'], seqtab['suffix']):
                 if prefix != '':
                     if prefix in ['[6FAM]', '[SIMA]', '[Cy5]', '[Cy5.5]']:
@@ -160,9 +161,13 @@ class synSimulator():
                         unique_mods['name'].append(f'{prefix}')
                         unique_mods['mod'].append(f'{prefix}')
                         unique_mods['base'].append(f'_{base}')
-                    elif prefix in ['[BHQ1]', '[BHQ2]']:
+                    elif (prefix in ['[BHQ1]', '[BHQ2]']) and (index == seqtab.shape[0]):
                         unique_mods['name'].append(f'{base}')
                         unique_mods['mod'].append(f'')
+                        unique_mods['base'].append(f'_{base}')
+                    elif (prefix in ['[BHQ1]', '[BHQ2]']) and (index != seqtab.shape[0]):
+                        unique_mods['name'].append(f'{prefix}')
+                        unique_mods['mod'].append(f'{prefix}')
                         unique_mods['base'].append(f'_{base}')
                     else:
                         unique_mods['name'].append(f'{prefix} {base}')
@@ -177,6 +182,7 @@ class synSimulator():
                     unique_mods['mod'].append(f'')
                     unique_mods['base'].append(f'_{base}')
                 #print(prefix, unique_mods['name'][-1])
+                index += 1
 
         self.all_reagents = pd.DataFrame(unique_mods)
 
