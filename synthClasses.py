@@ -161,6 +161,10 @@ class synSimulator():
                         unique_mods['name'].append(f'{prefix}')
                         unique_mods['mod'].append(f'{prefix}')
                         unique_mods['base'].append(f'_{base}')
+
+                        unique_mods['name'].append(f'{base}')
+                        unique_mods['mod'].append(f'')
+                        unique_mods['base'].append(f'_{base}')
                     elif (prefix in ['[BHQ1]', '[BHQ2]']) and (index == seqtab.shape[0]):
                         unique_mods['name'].append(f'{base}')
                         unique_mods['mod'].append(f'')
@@ -193,12 +197,13 @@ class synSimulator():
                 'total reagent mass, g': []
                 }
         #print('&'*100)
+        #print(self.all_reagents)
         for reagent in self.all_reagents['name'].unique():
             df = self.all_reagents[self.all_reagents['name'] == reagent]
+            #print(df)
             couple_num = self.synMethod.data[self.synMethod.data['Reagent'] == 'COUPL'].shape[0]
             sub_method = self.get_method_mod_subDF(base=df['base'].unique()[0], mod=df['mod'].unique()[0])
             sub_reagent = self.get_reagents_mod_subDF(base=df['base'].unique()[0], mod=df['mod'].unique()[0])
-            #print(reagent, sub_method.shape[0], sub_reagent.shape[0], df['base'].unique()[0])
             if sub_method.shape[0] > 0 and sub_reagent.shape[0] > 0:
                 self.info['reagent name'].append(sub_reagent['name'].unique()[0])
                 volume = sub_method[sub_method['Reagent'] == 'BASE']['volume, ul'].sum()\

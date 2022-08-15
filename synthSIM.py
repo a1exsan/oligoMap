@@ -720,12 +720,12 @@ def synprogs2params(fn):
 
 def create_progs():
     #fn = '/home/alex/Documents/OligoSynt/DB/maps/nmap/synth_090622_gp_SIMA_mod.xlsx'
-    fn = '/home/alex/Downloads/synth_200722_primers_ospa (2).xlsx'
-    main_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_4_main'
-    coup_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_4_couple'
-    remv_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_4_rmvDMT'
-    fini_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_4_fin'
-    copu_dye = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID28_4_couple_dye'
+    fn = '/home/alex/Downloads/synth_XX0822_dT18_5umol_ID5L_52_RP.xlsx'
+    main_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_52_main'
+    coup_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_52_couple'
+    remv_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_52_rmvDMT'
+    fini_fn = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_52_fin'
+    copu_dye = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID5L_52_couple_dye'
     #copu_sima = '/home/alex/Documents/OligoSynt/DB/maps/syn_programs/ID31_couple_sima'
     #files = [main_fn, coup_fn, remv_fn, fini_fn, copu_sima, copu_fum6]
     files = [main_fn, coup_fn, remv_fn, fini_fn, copu_dye]
@@ -773,9 +773,9 @@ if __name__ == '__main__':
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/HAPC_opt_6_dyes.xlsx')
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/HAPC_ID25_calc.xlsx')
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/HAPC_ID25_calc_10seq.xlsx')
-    #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/test_orders/service_calc_1seq.xlsx')
+    #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/test_orders/service_large_scale.xlsx')
     #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/NF_NR_2.xlsx')
-    #order_analysis('/home/alex/Documents/OligoSynt/OligoOrders/test_orders/primer6.xlsx')
+
     create_progs()
     #synprogs2params('/home/alex/Documents/OligoSynt/DB/data/synprog.csv')
 
