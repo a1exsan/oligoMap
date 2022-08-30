@@ -200,6 +200,20 @@ class OligoMapReadWriter():
 
         return out_df.T
 
+    def convert_method2xml(self, out_name='def_'):
+        main_fn = f'temp/{out_name}_main'
+        coup_fn = f'temp/{out_name}_couple'
+        remv_fn = f'temp/{out_name}_rmvDMT'
+        fini_fn = f'temp/{out_name}_fin'
+        copu_dye = f'temp/{out_name}_couple_dye'
+        files = [main_fn, coup_fn, remv_fn, fini_fn, copu_dye]
+        prog_types = ['main', 'couple', 'removeDMT', 'finish', 'couple [6FAM]']
+        extentions = ['pmp', 'pcp', 'prp', 'pfp', 'pcp']
+        conv = synthSIM.polygenProgConverter(self.filePath, main_fn, coup_fn, remv_fn, fini_fn, file_names=files,
+                                    prog_types=prog_types, extentions=extentions)
+        conv.convert_csv()
+        conv.write_xml()
+
 
 
 

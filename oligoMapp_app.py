@@ -42,3 +42,24 @@ if uploaded_xlsx is not None:
     override_height=75,
     debounce_time=0)
 
+    prog_name = st.text_area('Prog name: ', '', max_chars=100)
+
+    if prog_name != '':
+        oMap.convert_method2xml(out_name=prog_name)
+
+        with open(f'temp/{prog_name}_main.pmp') as file:
+            st.download_button(label='load main', data=file, file_name=f'temp/{prog_name}_main.pmp')
+
+        with open(f'temp/{prog_name}_couple.pcp') as file:
+            st.download_button(label='load couple', data=file, file_name=f'temp/{prog_name}_couple.pcp')
+
+        with open(f'temp/{prog_name}_rmvDMT.prp') as file:
+            st.download_button(label='load rmvDMT', data=file, file_name=f'temp/{prog_name}_rmvDMT.prp')
+
+        with open(f'temp/{prog_name}_fin.pfp') as file:
+            st.download_button(label='load finish', data=file, file_name=f'temp/{prog_name}_fin.pfp')
+
+        with open(f'temp/{prog_name}_couple_dye.pcp') as file:
+            st.download_button(label='load couple dye', data=file, file_name=f'temp/{prog_name}_couple_dye.pcp')
+
+
